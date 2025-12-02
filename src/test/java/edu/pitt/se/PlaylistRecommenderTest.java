@@ -9,14 +9,31 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PlaylistRecommenderTest {
 
     @Test
-    public void classifyEnergy() {
+    public void classifyEnergyHigh() {
         List<Integer> bpms = List.of(150, 145, 155);
         assertEquals("HIGH", PlaylistRecommender.classifyEnergy(bpms));
     }
 
     @Test
+    public void classifyEnergyMedium() {
+        List<Integer> bpms = List.of(100, 110, 120);
+        assertEquals("MEDIUM", PlaylistRecommender.classifyEnergy(bpms));
+    }
+
+    @Test
+    public void classifyEnergyLow() {
+        List<Integer> bpms = List.of(80, 90, 95);
+        assertEquals("LOW", PlaylistRecommender.classifyEnergy(bpms));
+    }
+
+    @Test
     public void classifyEnergyNullInput() {
         assertThrows(IllegalArgumentException.class, () -> PlaylistRecommender.classifyEnergy(null));
+    }
+
+    @Test
+    public void classifyEnergyEmptyInput() {
+        assertThrows(IllegalArgumentException.class, () -> PlaylistRecommender.classifyEnergy(List.of()));
     }
 
     @Test
@@ -27,6 +44,11 @@ public class PlaylistRecommenderTest {
     @Test
     public void isValidTrackTitleSpecialChar() {
         assertFalse(PlaylistRecommender.isValidTrackTitle("Party!"));
+    }
+
+    @Test
+    public void isValidTrackTitleNull() {
+        assertFalse(PlaylistRecommender.isValidTrackTitle(null));
     }
 
     @Test
